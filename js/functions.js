@@ -49,7 +49,7 @@ const getDigits = (date) => {
   const stringDate = date.toString();
   let digits = '';
   for (let i = 0; i < stringDate.length; i++) {
-    if (!Namber.isNaN(parseInt(stringDate[i], 10))) {
+    if (!Number.isNaN(parseInt(stringDate[i], 10))) {
       digits += stringDate[i];
     }
   }
