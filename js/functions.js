@@ -43,3 +43,17 @@ const isPalindrom = (string) => {
 };
 
 isPalindrom('Топот');
+
+//Функция для преобразование строки с цифрами в число по лайву
+const getDigits = (date) => {
+  const stringDate = date.toString();
+  let digits = '';
+  for (let i = 0; i < stringDate.length; i++) {
+    if (!Namber.isNaN(parseInt(stringDate[i], 10))) {
+      digits += stringDate[i];
+    }
+  }
+  return parseInt(digits, 10);
+};
+
+getDigits('1 кефир, 0.5 батона');
