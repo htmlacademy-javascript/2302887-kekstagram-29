@@ -2,7 +2,7 @@ const PICTURE_COUNT = 25;
 const AVATAR_COUNT = 6;
 const LIKE_MIN_COUNT = 14;
 const LIKE_MAX_COUNT = 200;
-const COMMENT_COUNT = 20;
+const COMMENT_COUNT = 30;
 const COMMENT_LINES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -17,7 +17,7 @@ const DESCRIPTIONS = [
   'Затусили с друзьями на море #laptevsea #north #northheastpassage',
   'Как же круто тут кормят #food #foodrgam #instafood #delicious #yammy',
   'Отдыхаем... #chill #relax #group #photo',
-  'Цените каждое мгновение. Цените тех, кто рядом с вами и отгоняйте все сомненья. Не обижайте',
+  'Цените каждое мгновение. Цените тех, кто рядом с вами и отгоняйте все сомненья. Не обижайте их',
   'Вот это тачка! #wow #car #carwow #drive',
   '#fun #party #cool #young',
   'Господи, это такая милота, я сейчас умру от нежности, у меня зашкалил мимиметр',
@@ -29,7 +29,7 @@ const NAMES = ['Макар','Владислав','Артём','Михаил','М
 const getRandomInteger = (a, b) => {
   const lower = Math.ceil(Math.min(a, b));
   const upper = Math.floor(Math.max(a, b));
-  const result = Math.random() * (upper - lower +1) + lower;
+  const result = Math.random() * (upper - lower + 1) + lower;
   return Math.floor(result);
 };
 
