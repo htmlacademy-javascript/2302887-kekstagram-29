@@ -1,4 +1,4 @@
-//Декларативно объявленная функция для проверки длины строки с классическим смнтаксисом
+//Декларативно объявленная функция для проверки длины строки с классическим синтаксисом
 function checksLengthString(string, maxLength) {
   if (string.length <= maxLength) {
     return true;
@@ -9,10 +9,22 @@ function checksLengthString(string, maxLength) {
 
 checksLengthString('Проверка длины строки', 21);
 
-//стрелочная функция для проверки длины строки с сокращённым синтаксисом
+
+//Cтрелочная функция для проверки длины строки с сокращённым синтаксисом
 const checksLengthString2 = (string, maxLength) => string.length <= maxLength;
 
-checksLengthString2('Проверка длины строки 2', 23);
+checksLengthString2('Проверка длины строки', 21);
+
+//Функция, объявленная через назначение переменной для проверки длины строк
+
+const checksLengthString3 = function(string, maxLength) {
+  if (string.length <= maxLength) {
+    return true;
+  }
+  return false;
+};
+
+checksLengthString3('Проверка длины строки', 21);
 
 
 //Функция для проверки, является ли строка палиндромом, решение в лоб по инструкции в задании
@@ -43,3 +55,17 @@ const isPalindrom = (string) => {
 };
 
 isPalindrom('Топот');
+
+//Функция для преобразование строки с цифрами и символами в число по лайву
+const getDigits = (date) => {
+  const stringDate = date.toString();
+  let digits = '';
+  for (let i = 0; i < stringDate.length; i++) {
+    if (!Number.isNaN(parseInt(stringDate[i], 10))) {
+      digits += stringDate[i];
+    }
+  }
+  return parseInt(digits, 10);
+};
+
+getDigits('1 кефир, 0.5 батона');
