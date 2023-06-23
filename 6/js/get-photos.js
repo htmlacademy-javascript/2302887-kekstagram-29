@@ -1,6 +1,6 @@
-import {getRandomInteger} from './functions.js';
-import {createIdGenerator} from './functions.js';
-import {getRandomArrayElement} from './functions.js';
+import {getRandomInteger} from './util.js';
+import {createIdGenerator} from './util.js';
+import {getRandomArrayElement} from './util.js';
 
 const PICTURE_COUNT = 25;
 const AVATAR_COUNT = 6;
