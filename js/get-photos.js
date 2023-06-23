@@ -44,10 +44,13 @@ const DESCRIPTIONS = [
 ];
 const NAMES = ['Макар','Владислав','Артём','Михаил','Маргарита','Александр'];
 
+//Функция генерации Id комментария
 const generateCommentId = createIdGenerator(0, 1);
 
+//Функция создаёт строку из одного или двух (разделённых пробелом) случайных элементов массива комментариев
 const createMessage = () => Array.from({length: getRandomInteger(1, 2)}, () => getRandomArrayElement(COMMENT_LINES)).join(' ');
 
+//Функция создаёт объект кокретного комментария к фотографии от случайного автора
 const createComment = () => ({
   id: generateCommentId(),
   avatar: `img/avatar-${getRandomInteger(1, AVATAR_COUNT)}.svg`,
@@ -55,6 +58,7 @@ const createComment = () => ({
   name: getRandomArrayElement(NAMES)
 });
 
+//Функция создаёт объект изображения фотографии с описанием и случайным количеством лайков и комментариев в пределах заданного количества
 const createPicture = (index) => ({
   id: index,
   url: `photos/${index}.jpg`,
@@ -63,6 +67,7 @@ const createPicture = (index) => ({
   comments: Array.from({length: getRandomInteger(0, COMMENT_COUNT)}, createComment)
 });
 
+//Функция создаёт массив из подряд заданного  количества фотографий из директории photos
 const getPhotos = () => Array.from(
   {length: PICTURE_COUNT},).map((_item, pictureIndex) => createPicture(pictureIndex + 1));
 
