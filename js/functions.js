@@ -16,7 +16,6 @@ const checksLengthString2 = (string, maxLength) => string.length <= maxLength;
 checksLengthString2('Проверка длины строки', 21);
 
 //Функция, объявленная через назначение переменной для проверки длины строк
-
 const checksLengthString3 = function(string, maxLength) {
   if (string.length <= maxLength) {
     return true;
@@ -69,3 +68,29 @@ const getDigits = (date) => {
 };
 
 getDigits('1 кефир, 0.5 батона');
+
+//Функция для получения случайного целого числа из диапозона, между аргументами
+const getRandomInteger = (a, b) => {
+  const lower = Math.ceil(Math.min(a, b));
+  const upper = Math.floor(Math.max(a, b));
+  const result = Math.random() * (upper - lower + 1) + lower;
+  return Math.floor(result);
+};
+
+//Функция выбирает случайный элемент из заданного в аргументе массива
+const getRandomArrayElement = (items) => items[getRandomInteger(0, items.length - 1)];
+
+/*Функция генератор-счётчик Id: начинает счёт с заданного значения и увеличивает Id на целое число
+при каждом следующем использовании в цикле (требует внешнюю функцию)*/
+const createIdGenerator = (start, up) => {
+  let lastGeneratedId = start;
+
+  return () => {
+    lastGeneratedId += up;
+    return lastGeneratedId;
+  };
+};
+
+export {getRandomInteger};
+export {createIdGenerator};
+export {getRandomArrayElement};
