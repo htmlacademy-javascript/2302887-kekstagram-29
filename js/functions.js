@@ -16,7 +16,6 @@ const checksLengthString2 = (string, maxLength) => string.length <= maxLength;
 checksLengthString2('Проверка длины строки', 21);
 
 //Функция, объявленная через назначение переменной для проверки длины строк
-
 const checksLengthString3 = function(string, maxLength) {
   if (string.length <= maxLength) {
     return true;
