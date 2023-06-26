@@ -68,3 +68,20 @@ const getDigits = (date) => {
 };
 
 getDigits('1 кефир, 0.5 батона');
+
+function jobTime(time) {
+  const [hour, minute] = time.split(':');
+  return hour * 60 + Number(minute);
+}
+
+function realMeeting(jobStart, jobEnd, meetingStart, meetingTime) {
+  const jobStartInMinutes = jobTime(jobStart);
+  const jobEndInMinutes = jobTime(jobEnd);
+  const meetingStartInMinutes = jobTime(meetingStart);
+  return (
+    meetingStartInMinutes >= jobStartInMinutes &&
+    meetingStartInMinutes + meetingTime <= jobEndInMinutes
+  );
+}
+
+console.log(realMeeting('8:00', '17:30', '14:00', 90));
