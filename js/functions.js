@@ -69,11 +69,13 @@ const getDigits = (date) => {
 
 getDigits('1 кефир, 0.5 батона');
 
+//Функция для преобразования строки со временем дня в число минут с начала суток
 function jobTime(time) {
   const [hour, minute] = time.split(':');
   return hour * 60 + Number(minute);
 }
 
+//Функция проверки реальности встречи в рабочее время
 function realMeeting(jobStart, jobEnd, meetingStart, meetingTime) {
   const jobStartInMinutes = jobTime(jobStart);
   const jobEndInMinutes = jobTime(jobEnd);
@@ -84,4 +86,4 @@ function realMeeting(jobStart, jobEnd, meetingStart, meetingTime) {
   );
 }
 
-console.log(realMeeting('8:00', '17:30', '14:00', 90));
+realMeeting('8:00', '17:30', '14:00', 90);
