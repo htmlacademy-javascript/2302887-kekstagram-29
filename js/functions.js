@@ -86,4 +86,4 @@ const realMeeting = (jobStart, jobEnd, meetingStart, meetingTime) => {
   );
 }
 
-realMeeting('8:00', '17:30', '14:00', 90);
+console.log(realMeeting('8:00', '17:30', '14:00', 90));
