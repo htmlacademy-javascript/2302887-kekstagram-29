@@ -70,13 +70,13 @@ const getDigits = (date) => {
 getDigits('1 кефир, 0.5 батона');
 
 //Функция для преобразования строки со временем дня в число минут с начала суток
-function jobTime(time) {
+const jobTime = (time) => {
   const [hour, minute] = time.split(':');
   return hour * 60 + Number(minute);
 }
 
 //Функция проверки реальности встречи в рабочее время
-function realMeeting(jobStart, jobEnd, meetingStart, meetingTime) {
+const realMeeting = (jobStart, jobEnd, meetingStart, meetingTime) => {
   const jobStartInMinutes = jobTime(jobStart);
   const jobEndInMinutes = jobTime(jobEnd);
   const meetingStartInMinutes = jobTime(meetingStart);
