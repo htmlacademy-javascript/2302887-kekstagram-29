@@ -77,7 +77,7 @@ const TimeInMinutes = (time) => {
 
 //Функция проверки реальности встречи в рабочее время
 const realMeeting = (jobStart, jobEnd, meetingStart, meetingTime) => {
-  const jobStartInMinutes = Time(jobStart);
+  const jobStartInMinutes = TimeInMinutes(jobStart);
   const jobEndInMinutes = TimeInMinutes(jobEnd);
   const meetingStartInMinutes = TimeInMinutes(meetingStart);
   return (
