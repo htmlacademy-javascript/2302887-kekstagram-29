@@ -3,7 +3,7 @@ import {createIdGenerator} from './util.js';
 import {getRandomArrayElement} from './util.js';
 
 const PICTURE_COUNT = 25;
-const AVATAR_COUNT = 6;
+const AVATAR_COUNT = 5;
 const LIKE_MIN_COUNT = 15;
 const LIKE_MAX_COUNT = 200;
 const COMMENT_COUNT = 30;

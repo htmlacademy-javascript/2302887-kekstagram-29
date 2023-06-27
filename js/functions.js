@@ -68,3 +68,22 @@ const getDigits = (date) => {
 };
 
 getDigits('1 кефир, 0.5 батона');
+
+//Функция для преобразования строки со временем дня в число минут с начала суток
+const TimeInMinutes = (time) => {
+  const [hour, minute] = time.split(':');
+  return hour * 60 + Number(minute);
+}
+
+//Функция проверки реальности встречи в рабочее время
+const realMeeting = (jobStart, jobEnd, meetingStart, meetingTime) => {
+  const jobStartInMinutes = TimeInMinutes(jobStart);
+  const jobEndInMinutes = TimeInMinutes(jobEnd);
+  const meetingStartInMinutes = TimeInMinutes(meetingStart);
+  return (
+    meetingStartInMinutes >= jobStartInMinutes &&
+    meetingStartInMinutes + meetingTime <= jobEndInMinutes
+  );
+}
+
+console.log(realMeeting('8:00', '17:30', '14:00', 90));
