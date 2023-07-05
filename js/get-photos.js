@@ -2,7 +2,7 @@ import {getRandomInteger} from './util.js';
 import {createIdGenerator} from './util.js';
 import {getRandomArrayElement} from './util.js';
 
-const PICTURE_COUNT = 25;
+const PICTURE_COUNT = 26;
 const AVATAR_COUNT = 5;
 const LIKE_MIN_COUNT = 15;
 const LIKE_MAX_COUNT = 200;
@@ -40,7 +40,8 @@ const DESCRIPTIONS = [
   'Love and sunset - romantic!',
   'Крабы, они такие крабы!))',
   'Драйв! Круть! Огонь!',
-  'Два бегемота из разных миров...'
+  'Два бегемота из разных миров...',
+  'А каши из чугунка?'
 ];
 const NAMES = ['Макар','Владислав','Артём','Михаил','Маргарита','Александр'];
 
@@ -71,4 +72,4 @@ const createPicture = (index) => ({
 const getPhotos = () => Array.from(
   {length: PICTURE_COUNT},).map((_item, pictureIndex) => createPicture(pictureIndex + 1));
 
-console.log(getPhotos());
+export { getPhotos };
