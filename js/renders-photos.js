@@ -30,7 +30,7 @@ const renderPhotos = (pictures) => {
   const fragment = document.createDocumentFragment();
   //Проходим по массиву элементов фото
   pictures.forEach((picture) => {
-    //Создаём элемент DOM-дерева для каждого фото с помощью колбэк-функции createThumbnail
+    //Создаём элемент DOM-дерева для каждого фото с помощью колбэк-функции createPhoto
     const photo = createPhoto(picture);
     //Записывем этот элемент в конец фрагмента DOM-элементов
     fragment.append(photo);
