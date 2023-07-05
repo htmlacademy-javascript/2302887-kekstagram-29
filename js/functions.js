@@ -85,5 +85,3 @@ const realMeeting = (jobStart, jobEnd, meetingStart, meetingTime) => {
     meetingStartInMinutes + meetingTime <= jobEndInMinutes
   );
 }
-
-console.log(realMeeting('8:00', '17:30', '14:00', 90));
