@@ -35,7 +35,7 @@ const renderPhotos = (pictures) => {
     //Записывем этот элемент в конец фрагмента DOM-элементов
     fragment.append(photo);
   });
-  //Добавляем содержимое фрагмента DOM-дерева в DOM-дерево
+  //Добавляем содержимое фрагмента DOM-дерева в DOM-дерево сайта
   container.append(fragment);
 };
 
