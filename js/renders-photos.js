@@ -7,7 +7,7 @@ const container = document.querySelector('.pictures');
 
 //Колбэкфункция создания одного элемента - фотоминиатюры по шаблону
 //В параметрах функции деструктурируем нужные поля массива описания фотографий
-const createPhoto = ({ comments, description, likes, url }) => {
+const createPhoto = ({ comments, description, likes, url, id }) => {
   //Клонируем шаблон во внутреннюю переменную функции
   const photo = photoTemplate.cloneNode(true);
 
@@ -19,6 +19,8 @@ const createPhoto = ({ comments, description, likes, url }) => {
   photo.querySelector('.picture__comments').textContent = comments.length;
   //Находим поле количества лайков и записываем туда реальное количество лайков к фото
   photo.querySelector('.picture__likes').textContent = likes;
+  //Создаём дата-атрибут с идентификатором фото для будушей отрисовки окна с фото в большом размере
+  photo.dataset.photoId = id;
   //Возвращем объект - элемент фотоминиатюры
   return photo;
 };
