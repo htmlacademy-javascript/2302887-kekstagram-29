@@ -2,8 +2,6 @@
 const pictureTemplate = document.querySelector('#picture');
 //Получаем содержимое шаблона и записываем в переменную-объект
 const photoTemplate = pictureTemplate.content.querySelector('.picture');
-//Находим место размещения обработанных шаблонов - результат работы данного модуля
-const container = document.querySelector('.pictures');
 
 //Колбэкфункция создания одного элемента - фотоминиатюры по шаблону
 //В параметрах функции деструктурируем нужные поля массива описания фотографий
@@ -20,14 +18,14 @@ const createPhoto = ({ comments, description, likes, url, id }) => {
   //Находим поле количества лайков и записываем туда реальное количество лайков к фото
   photo.querySelector('.picture__likes').textContent = likes;
   //Создаём дата-атрибут с идентификатором фото для будушей отрисовки окна с фото в большом размере
-  photo.dataset.photoId = id;
+  photo.dataset.photoIndex = id;
   //Возвращем объект - элемент фотоминиатюры
   return photo;
 };
 
 //Основная функция модуля - отрисовывает фото(добавляет массив данных о фото в заданное место DOM-дерева)
 //В параметр функции принимаем массив элементов, содержащих данные о кокретном фото
-const renderPhotos = (pictures) => {
+const renderPhotos = (pictures, container) => {
   //Создаём временный массив-объект для хранения фрагмента DOM-дерева с помощью метода createDocumentFragment()
   const fragment = document.createDocumentFragment();
   //Проходим по массиву элементов фото
