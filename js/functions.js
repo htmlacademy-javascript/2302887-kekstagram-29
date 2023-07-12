@@ -73,7 +73,7 @@ getDigits('1 кефир, 0.5 батона');
 const TimeInMinutes = (time) => {
   const [hour, minute] = time.split(':');
   return hour * 60 + Number(minute);
-}
+};
 
 //Функция проверки реальности встречи в рабочее время
 const realMeeting = (jobStart, jobEnd, meetingStart, meetingTime) => {
@@ -84,4 +84,4 @@ const realMeeting = (jobStart, jobEnd, meetingStart, meetingTime) => {
     meetingStartInMinutes >= jobStartInMinutes &&
     meetingStartInMinutes + meetingTime <= jobEndInMinutes
   );
-}
+};

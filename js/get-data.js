@@ -68,8 +68,8 @@ const createPicture = (index) => ({
   comments: Array.from({length: getRandomInteger(0, COMMENT_COUNT)}, createComment)
 });
 
-//Функция создаёт массив из подряд заданного  количества фотографий из директории photos
-const getPhotos = () => Array.from(
+//Функция создаёт массив из подряд заданного количества фотографий из директории photos
+const getData = () => Array.from(
   {length: PICTURE_COUNT},).map((_item, pictureIndex) => createPicture(pictureIndex + 1));
 
-export { getPhotos };
+export { getData };
