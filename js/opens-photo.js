@@ -2,7 +2,6 @@ const DISPLAY_COMMENTS = 5;
 
 const bigPictureElement = document.querySelector('.big-picture');
 const commentCountElement = bigPictureElement.querySelector('.comments-count');
-const commentsShownCountElement = bigPictureElement.querySelector('.comments-shown-count');
 const commentListElement = bigPictureElement.querySelector('.social__comments');
 const commentsLoaderElement = bigPictureElement.querySelector('.comments-loader');
 const bodyElement = document.querySelector('body');
@@ -43,7 +42,6 @@ const renderComments = () => {
 
   commentListElement.innerHTML = '';
   commentListElement.append(fragment);
-  commentsShownCountElement.textContent = commentsShown;
   commentCountElement.textContent = comments.length;
 };
 
@@ -89,5 +87,6 @@ const openPhoto = (data) => {
 
 cancelButtonElement.addEventListener('click', onCancelButtonClick);
 commentsLoaderElement.addEventListener('click', onCommentsLoaderClick);
+
 
 export { openPhoto };
