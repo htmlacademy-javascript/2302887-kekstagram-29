@@ -18,6 +18,7 @@ const createComment = ({ avatar, name, message }) => {
   const comment = commentTemplate.cloneNode(true);
   //Находим поле ссылки на фото в клоне  и записываем туда реальную ссылку на аватар
   comment.querySelector('.social__picture').src = avatar;
+  //Находим поле ссылки на имя в клоне  и записываем туда реальную ссылку на имя
   comment.querySelector('.social__picture').alt = name;
   comment.querySelector('.social__text').textContent = message;
 
