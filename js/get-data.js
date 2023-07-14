@@ -1,12 +1,20 @@
+//Модуль генерации временного массива данных о фотографиях выложенных в кекстограме
+
 import {getRandomInteger} from './util.js';
 import {createIdGenerator} from './util.js';
 import {getRandomArrayElement} from './util.js';
 
+//Количество фото в массиве
 const PICTURE_COUNT = 26;
-const AVATAR_COUNT = 5;
+//Количество авторов комментариев
+const AVATAR_COUNT = 6;
+//Минимальное количество лайков к фото
 const LIKE_MIN_COUNT = 15;
+//Максимальное количество лайков к фото
 const LIKE_MAX_COUNT = 200;
-const COMMENT_COUNT = 30;
+//Максимальное количество комментариев к фото
+const COMMENT_MAX_COUNT = 30;
+//Массив комментариев к фотографиям
 const COMMENT_LINES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -15,6 +23,7 @@ const COMMENT_LINES = [
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
+//Массив описаний фотографий
 const DESCRIPTIONS = [
   'Не сезон.',
   'goToTheBeach = () =>',
@@ -27,8 +36,8 @@ const DESCRIPTIONS = [
   'На пляже тесно и весело!',
   'Куда же он ушёл?!',
   'Дорожка на чил...',
-  'Где это я? Что за глушь? Я потерялся! Включаю навигатор и еду в Сакраменто.',
-  'Это будет вкусно - обещаю.',
+  'Где это я? Что за глушь? Я потерялся! Включаю навиганто и еду в Сакраменто.',
+  'Это было вкусно - честное слово!',
   'Мяу, выпустите меняу!',
   'Тепло и тихо, лежу за книгой.',
   'Flybye: здравствуй и прощай!',
@@ -43,6 +52,7 @@ const DESCRIPTIONS = [
   'Два бегемота из разных миров...',
   'А каши из чугунка?'
 ];
+//Массив имён авторов комментариев
 const NAMES = ['Макар','Владислав','Артём','Михаил','Маргарита','Александр'];
 
 //Функция генерации Id комментария
@@ -63,9 +73,10 @@ const createComment = () => ({
 const createPicture = (index) => ({
   id: index,
   url: `photos/${index}.jpg`,
+  avatar: `img/avatar-${getRandomInteger(1, AVATAR_COUNT)}.svg`,
   description: DESCRIPTIONS[index - 1],
   likes: getRandomInteger(LIKE_MIN_COUNT, LIKE_MAX_COUNT),
-  comments: Array.from({length: getRandomInteger(0, COMMENT_COUNT)}, createComment)
+  comments: Array.from({length: getRandomInteger(0, COMMENT_MAX_COUNT)}, createComment)
 });
 
 //Функция создаёт массив из подряд заданного количества фотографий из директории photos

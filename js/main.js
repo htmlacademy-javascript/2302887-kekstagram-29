@@ -1,4 +1,4 @@
 import { getData } from './get-data.js';
-import { renderPage } from './renders-page.js';
+import { renderGallery } from './renders-gallery.js';
 
-renderPage(getData());
+renderGallery(getData());
