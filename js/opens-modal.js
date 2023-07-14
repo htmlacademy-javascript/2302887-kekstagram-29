@@ -5,7 +5,7 @@ const DISPLAY_COMMENTS = 5;
 
 //Находим узел отображения модального окна в DOMе
 const modalOpenElement = document.querySelector('.big-picture');
-const commentElement = modalOpenElement.querySelector('.comments');
+const commentElement = modalOpenElement.querySelector('.comments-shown');
 //Находим узел отображения количества комментариев к фото
 const commentCountElement = modalOpenElement.querySelector('.comments-count');
 //Находим узел отображения комментариев к фото
@@ -44,9 +44,12 @@ const renderComments = () => {
   commentsShown += DISPLAY_COMMENTS;
   //Проверяем необходимость показа кнопки Показать ещё (комментарии)
   if (commentsShown >= comments.length) {
+    //Если все комментарии показаны, скрываем кнопку
     commentsLoaderElement.classList.add('hidden');
+    //Увиличиваем счётчик показанных комментариев до конца
     commentsShown = comments.length;
   } else {
+    //Иначе показывам кнопку
     commentsLoaderElement.classList.remove('hidden');
   }
   //Создаем фрагмент для вывода пакета комментариев
@@ -76,13 +79,17 @@ const hideModal = () => {
   bodyElement.classList.remove('modal-open');
   //Удалям обработчик события нажатия кнопки Escape
   document.removeEventListener('keydown', onDocumentKeydown);
+  //Обнуляем счётчик показанных комментариев
   commentsShown = 0;
 };
 
 //Функция закрытия модального окна при нажатии кнопки Escape
 function onDocumentKeydown(evt) {
+  //Если нажата кнопка Escape
   if (evt.key === 'Escape') {
+    //Отменяем действия браузера по умолчанию
     evt.preventDefault();
+    //Вызываем функцию закрытия модального окна
     hideModal();
   }
 }
