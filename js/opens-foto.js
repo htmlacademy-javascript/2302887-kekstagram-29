@@ -72,7 +72,7 @@ const renderComments = () => {
 };
 
 //Функция операций при закрытии модального окна
-const hideModal = () => {
+const closeModal = () => {
   //Добавляем класс скрытия окна
   modalOpenElement.classList.add('hidden');
   //Удалям класс открытия окна
@@ -90,12 +90,12 @@ function onDocumentKeydown(evt) {
     //Отменяем действия браузера по умолчанию
     evt.preventDefault();
     //Вызываем функцию закрытия модального окна
-    hideModal();
+    closeModal();
   }
 }
 
 //Функция исполнения закрытия модального окна
-const onCancelButtonClick = () => hideModal();
+const onCancelButtonClick = () => closeModal();
 
 //Функция исполнения загрузки порции комментариев
 const onCommentsLoaderClick = () => renderComments();
