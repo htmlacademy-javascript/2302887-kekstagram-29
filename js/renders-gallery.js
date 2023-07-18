@@ -1,9 +1,9 @@
 //Модуль отрисовки страницы с галереей из миниатюр фото и открытием модального окна с фото
 
-import { renderMiniPhotos } from './renders-mini-photos.js';
+import { renderMiniPhotos } from './renders-miniphotos.js';
 import { openModal } from './opens-foto.js';
 
-//Находим узел будущего расположения списка фото в DOM и записывем в контейнер
+//Находим элемент будущего расположения списка фото в DOM и записывем в контейнер
 const container = document.querySelector('.pictures');
 
 //Функция вызова модулей отрисовки миниатюр и окрытия модального окна с кликнутым фото
