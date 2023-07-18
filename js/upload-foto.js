@@ -20,7 +20,7 @@ const descriptionField = document.querySelector('.text__description');
 //Находим кнопку Закрыть модальное окно загрузки фото (крест)
 const cancelCross = document.querySelector('#upload-cancel');
 //Находим кнопку Опубликовать фото с комментариями
-const button = document.querySelector('#upload-submit');
+const buttonSubmit = document.querySelector('#upload-submit');
 
 
 //функция подключения и настройки внешней библиотеки валидпции форм Pristine
@@ -105,26 +105,15 @@ pristine.addValidator(
   TAGS_ERROR_TEXT
 );
 
-//Функция блокирования кнопки опубликовать фото с комментариями, если поле хэштэгов невалидно
-function onHasTegKeyDown(evt) {
-  if (evt.keyCode !== null && validateTags) {
-    button.disabled = true;
-  } else {
-    button.disabled = false;
-  }
-}
-
 //Функция блокирования кнопки опубликовать фото с комментариями, если количество символов в поле комментариев больше 140
 function onTextAriaKeyDown(evt) {
   if (evt.keyCode !== null && descriptionField.value.length >= 140) {
-    button.disabled = true;
+    buttonSubmit.disabled = true;
   } else {
-    button.disabled = false;
+    buttonSubmit.disabled = false;
   }
 }
 
-//Добавляем обработчик события нажатия любой кнопки в поле добавления хэштэгов
-hashtagField.addEventListener('keydown', onHasTegKeyDown);
 //Добавляем обработчик события нажатия любой кнопки в поле добавления комментариев
 descriptionField.addEventListener('keydown', onTextAriaKeyDown);
 //Добавляет обработчик события change на кнопку Открыть фото в модальном окне
