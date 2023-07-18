@@ -3,21 +3,22 @@
 //Определяем порцию выводимых комментариев
 const DISPLAY_COMMENTS = 5;
 
-//Находим узел отображения модального окна в DOMе
+//Находим элемент отображения модального окна в DOMе
 const modalOpenElement = document.querySelector('.big-picture');
 const commentElement = modalOpenElement.querySelector('.comments-shown');
-//Находим узел отображения количества комментариев к фото
+//Находим элемент отображения количества комментариев к фото
 const commentCountElement = modalOpenElement.querySelector('.comments-count');
-//Находим узел отображения комментариев к фото
+//Находим элемент отображения комментариев к фото
 const commentListElement = modalOpenElement.querySelector('.social__comments');
-//Находим узел отображения кнопки для загрузки новой порции комментариев
+//Находим элемент отображения кнопки для загрузки новой порции комментариев
 const commentsLoaderElement = modalOpenElement.querySelector('.comments-loader');
 //Находим body элемент страницы
 const bodyElement = document.querySelector('body');
-//Находим узел отображения кнопки для выхода из полноэкранного просмотра изображения
+//Находим элемент отображения кнопки для выхода из полноэкранного просмотра изображения
 const cancelButtonElement = modalOpenElement.querySelector('.big-picture__cancel');
 //Находим и получаем содержимое шаблона и записываем в переменную-объект
 const commentTemplate = document.querySelector('.big-picture__social').querySelector('.social__comment');
+
 //Объявляем переменную количества отображаемых комментариев
 let commentsShown = 0;
 //Объявляем массив комментариев
@@ -104,15 +105,15 @@ const onCommentsLoaderClick = () => renderComments();
 
 //Принимает объект с инфомацией об изображении и деструктурирует нужные поля
 const renderPicturesDetalis = ({ url, avatar, likes, description }) => {
-  //Находим узел ссылки на фото в DOM и записываем туда реальную ссылку на фото
+  //Находим элемент ссылки на фото в DOM и записываем туда реальную ссылку на фото
   modalOpenElement.querySelector('.big-picture__img img').src = url;
-  //Находим узел ссылки на аватар автора в DOM и записываем туда реальную ссылку на аватар
+  //Находим элемент ссылки на аватар автора в DOM и записываем туда реальную ссылку на аватар
   modalOpenElement.querySelector('.social__header .social__picture').src = avatar;
-  //Находим узел количества лайков в DOM и записываем туда количество лайков к открытому фото
+  //Находим элемент количества лайков в DOM и записываем туда количество лайков к открытому фото
   modalOpenElement.querySelector('.likes-count').textContent = likes;
-  //Находим узел описания фото в DOM и записываем туда описание открытого фото
+  //Находим элемент описания фото в DOM и записываем туда описание открытого фото
   modalOpenElement.querySelector('.social__caption').textContent = description;
-  //Находим узел альтернативного описания открытого фото в DOM и записываем туда описание
+  //Находим элемент альтернативного описания открытого фото в DOM и записываем туда описание
   modalOpenElement.querySelector('.big-picture__img img').alt = description;
 };
 
