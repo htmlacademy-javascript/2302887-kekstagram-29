@@ -3,7 +3,9 @@ const MAX_HASHTAGS_COUNT = 5;
 //Определяем правило написания хэштэга через регулярное выражение
 const HASHTAGS_RULES = /^#[a-zа-яё0-9]{1,19}$/i;
 //Определяем текст сообщения об ошибке записи хэштэгов
-const TAGS_ERROR_TEXT = 'Неправильно прописаны хештеги ! Начать с #, от 1 до 19 символов, до 5 тэгов через пробел !';
+const UNUNIQUE_TAGS_ERROR_TEXT = 'Ошибка хэштэга: повторяющийся хэштэг - уберите повтор в любом регистре !';
+const INVALID_CONTENT_ERROR_TEXT = 'Ошибка хэштэга: неверное содержимое хэштэга - начать с # плюс от 1  до 19 символов !';
+const INVALID_COUNT_ERROR_TEXT = 'Ошибка хэштэга: превышено допустимое количество хэштэгов - не более 5 !';
 
 //Находим body элемент страницы
 const body = document.querySelector('body');
@@ -80,42 +82,57 @@ const onCancelCrossClick = () => {
   hideModal();
 };
 
+//Функция нормализации строки хэштэгов (обрезаем пробелы в начале и конце, разделяем на массив подстрок по пробелу и удаляем пустые подстроки)
+const normalizeTags = (tagString) => tagString.trim().split(' ').filter((tag) => Boolean(tag.length));
+
 //Подфункция валидации правильности написания хэштэга
-const isValidTag = (tag) => HASHTAGS_RULES.test(tag);
+const isValidTag = (value) => normalizeTags(value).every((tag) => HASHTAGS_RULES.test(tag));
 
 //Подфункция валидации допустимого количество хэштэгов
-const hasValidCount = (tags) => tags.length <= MAX_HASHTAGS_COUNT;
+const hasValidCount = (value) => normalizeTags(value).length <= MAX_HASHTAGS_COUNT;
 
 //Подфункция валидации отсутствия одинаковых хэштэгов
-const hasUniqueTags = (tags) => {
+const hasUniqueTags = (value) => {
   //Приводим хэштэг к нижнему регистру
-  const lowerCaseTags = tags.map((tag) => tag.toLowerCase());
+  const lowerCaseTags = normalizeTags(value).map((tag) => tag.toLowerCase());
   //Сравниваем длину массива хэштэгов с длиной созданной коллекции Set (которая не сохраняет повторяющиеся элементы в массиве)
   //Возвращает true, если длины равны, т.е.повторы в изначальном массиве хэштэгов отсутствуют
   return lowerCaseTags.length === new Set(lowerCaseTags).size;
 };
 
-//Функция необходимой собственной валидации поля хэштэгов
-const validateTags = (value) => {
-  //Функция нормализации строки хэштэгов (обрезаем пробелы в начале и конце, разделяем на массив подстрок по пробелу и удаляем пустые подстроки )
-  const tags = value.trim().split(' ').filter((tag) => Boolean(tag.length));
-  //Возвращаем true, если если валидация пройдена по всем критериям или false, если хотя бы один критерий валидацию не прошёл
-  return hasValidCount(tags) && hasUniqueTags(tags) && tags.every(isValidTag);
-};
-
-//Функция добавления собственных валидаторов для Pristine
+//Функция валидации отсутствия повторяющихся хэштэгов
 pristine.addValidator(
   //Определяем поле подлежащее валидации
   hashtagField,
   //Вызыв функции необходимой собственной валидации поля хэштэгов
-  validateTags,
+  hasUniqueTags,
   //Сообщение, выводимое Pristine при возникновении ошибки валидации поля хэштэгов
-  TAGS_ERROR_TEXT
+  UNUNIQUE_TAGS_ERROR_TEXT, 1, true
+);
+
+//Функция валидации символов хэштэга
+pristine.addValidator(
+  //Определяем поле подлежащее валидации
+  hashtagField,
+  //Вызыв функции необходимой собственной валидации поля хэштэгов
+  isValidTag,
+  //Сообщение, выводимое Pristine при возникновении ошибки валидации поля хэштэгов
+  INVALID_CONTENT_ERROR_TEXT, 2, true
+);
+
+//Функция валидации символов хэштэга
+pristine.addValidator(
+  //Определяем поле подлежащее валидации
+  hashtagField,
+  //Вызыв функции необходимой собственной валидации поля хэштэгов
+  hasValidCount,
+  //Сообщение, выводимое Pristine при возникновении ошибки валидации поля хэштэгов
+  INVALID_COUNT_ERROR_TEXT, 3, true
 );
 
 //Функция блокирования кнопки Опубликовать фото с комментариями, если валидация полей хэштэгов или комментариев не пройдена
 function onTextKeyUp() {
-  if (validateTags(hashtagField.value) && descriptionField.value.length < 141) {
+  if (hasUniqueTags(hashtagField.value) && isValidTag(hashtagField.value) && hasValidCount(hashtagField.value) && descriptionField.value.length < 141) {
     buttonSubmit.disabled = false;
   } else {
     buttonSubmit.disabled = true;
