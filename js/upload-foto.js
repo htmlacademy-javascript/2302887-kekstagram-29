@@ -23,34 +23,41 @@ const cancelCross = document.querySelector('#upload-cancel');
 const buttonSubmit = document.querySelector('#upload-submit');
 
 
-//функция подключения и настройки внешней библиотеки валидпции форм Pristine
+//Функция подключения и настройки внешней библиотеки валидации форм Pristine
 const pristine = new Pristine(form, {
-  //Задаём класс элеиента, содержащего валидируемые поля формы (обязательная настройка)
+  //Задаём класс элемента, содержащего валидируемые поля формы (обязательная настройка)
   classTo: 'img-upload__field-wrapper',
   //Задаём класс элемента вывода сообщений об ошибках валидации (обязательная настройка)
   errorTextParent: 'img-upload__field-wrapper',
-  //Задаём дополнительный класс для вывода текста ошибки валидации (необязательная настройка)
+  //Задаём дополнительный класс для стилизации вывода текста ошибки валидации (необязательная настройка)
   errorTextClass: 'img-upload__error'
 });
 
-//Функция операций при открытии модального окна
+//Функция операций при открытии модального окна публикации фото
 const showModal = () => {
-  //Добавляем/удаляем нужные классы и добавляем обработчик события
+  //Добавляем/удаляем нужные классы
   overlay.classList.remove('hidden');
   body.classList.add('modal-open');
+  //Добавляем обработчик события нажатия любой кнопки при окрытом окне для его закрытия
   document.addEventListener('keydown', onDocumentKeydown);
+  //Добавляем обработчик события отпускания любой кнопки в поле добавления хэштэгов для блокировки отправки данных при невалидном поле хэштэгов
+  hashtagField.addEventListener('keyup', onTextKeyUp);
+  //Добавляем обработчик события отпускания любой кнопки в поле добавления комментариев для блокировки отправки данных при невалидном поле комментария
+  descriptionField.addEventListener('keyup', onTextKeyUp);
 };
 
-//Функция операций при закрытии модального окна
+//Функция операций при закрытии модального окна публикации фото
 const hideModal = () => {
   //Очищаем возможное содержимое полей формы от предыдущих заполнений
   form.reset();
   //Сбрасываем возможные ошибки Pristine от предыдущих заполнений формы
   pristine.reset();
-  //Добавляем/удаляем нужные классы и удаляем обработчик события нажатия кнопки Escape
+  //Добавляем/удаляем нужные классы и удаляем обработчики событий, связанных с открытым окном
   overlay.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
+  hashtagField.removeEventListener('keyup', onTextKeyUp);
+  descriptionField.removeEventListener('keyup', onTextKeyUp);
 };
 
 //Функция условия блокирования закрытия модального окна при активном фокусе на поле хэштэга или комментария через свойство activeElement
@@ -81,9 +88,10 @@ const hasValidCount = (tags) => tags.length <= MAX_HASHTAGS_COUNT;
 
 //Подфункция валидации отсутствия одинаковых хэштэгов
 const hasUniqueTags = (tags) => {
-  //Переводим хэштэг в нижний регистр
+  //Приводим хэштэг к нижнему регистру
   const lowerCaseTags = tags.map((tag) => tag.toLowerCase());
-  //Проверяем
+  //Сравниваем длину массива хэштэгов с длиной созданной коллекции Set (которая не сохраняет повторяющиеся элементы в массиве)
+  //Возвращает true, если длины равны, т.е.повторы в изначальном массиве хэштэгов отсутствуют
   return lowerCaseTags.length === new Set(lowerCaseTags).size;
 };
 
@@ -106,7 +114,7 @@ pristine.addValidator(
 );
 
 //Функция блокирования кнопки Опубликовать фото с комментариями, если валидация полей хэштэгов или комментариев не пройдена
-function onKeyUp() {
+function onTextKeyUp() {
   if (validateTags(hashtagField.value) && descriptionField.value.length < 141) {
     buttonSubmit.disabled = false;
   } else {
@@ -114,10 +122,6 @@ function onKeyUp() {
   }
 }
 
-//Добавляем обработчик события нажатия любой кнопки в поле добавления хэштэгов
-hashtagField.addEventListener('keyup', onKeyUp);
-//Добавляем обработчик события нажатия любой кнопки в поле добавления комментариев
-descriptionField.addEventListener('keyup', onKeyUp);
 //Добавляет обработчик события change на кнопку Открыть фото в модальном окне
 fileField.addEventListener('change', onOpenFileChange);
 //Добавляет обработчик события click на кнопку Закрыть окно (крест) в модальном окне
