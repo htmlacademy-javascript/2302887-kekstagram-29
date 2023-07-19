@@ -106,8 +106,8 @@ pristine.addValidator(
 );
 
 //Функция блокирования кнопки опубликовать фото с комментариями, если количество символов в поле комментариев больше 140
-function onTextAriaKeyDown(evt) {
-  if (evt.keyCode !== null && descriptionField.value.length >= 140) {
+function onTextAriaKeyDown() {
+  if (descriptionField.value.length > 140) {
     buttonSubmit.disabled = true;
   } else {
     buttonSubmit.disabled = false;
@@ -115,7 +115,7 @@ function onTextAriaKeyDown(evt) {
 }
 
 //Добавляем обработчик события нажатия любой кнопки в поле добавления комментариев
-descriptionField.addEventListener('keydown', onTextAriaKeyDown);
+descriptionField.addEventListener('keyup', onTextAriaKeyDown);
 //Добавляет обработчик события change на кнопку Открыть фото в модальном окне
 fileField.addEventListener('change', onOpenFileChange);
 //Добавляет обработчик события click на кнопку Закрыть окно (крест) в модальном окне
