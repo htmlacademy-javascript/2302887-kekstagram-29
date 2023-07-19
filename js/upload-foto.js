@@ -105,8 +105,17 @@ pristine.addValidator(
   TAGS_ERROR_TEXT
 );
 
-//Функция блокирования кнопки опубликовать фото с комментариями, если количество символов в поле комментариев больше 140
-function onTextAriaKeyDown() {
+//Функция блокирования кнопки Опубликовать фото с комментариями, если валидация поля хэштэгов не пройдена
+function onTagFieldKeyUp() {
+  if (validateTags(hashtagField.value)) {
+    buttonSubmit.disabled = false;
+  } else {
+    buttonSubmit.disabled = true;
+  }
+}
+
+//Функция блокирования кнопки Опубликовать фото с комментариями, если количество символов в поле комментариев больше 140
+function onTextAriaKeyUp() {
   if (descriptionField.value.length > 140) {
     buttonSubmit.disabled = true;
   } else {
@@ -115,7 +124,9 @@ function onTextAriaKeyDown() {
 }
 
 //Добавляем обработчик события нажатия любой кнопки в поле добавления комментариев
-descriptionField.addEventListener('keyup', onTextAriaKeyDown);
+hashtagField.addEventListener('keyup', onTagFieldKeyUp);
+//Добавляем обработчик события нажатия любой кнопки в поле добавления комментариев
+descriptionField.addEventListener('keyup', onTextAriaKeyUp);
 //Добавляет обработчик события change на кнопку Открыть фото в модальном окне
 fileField.addEventListener('change', onOpenFileChange);
 //Добавляет обработчик события click на кнопку Закрыть окно (крест) в модальном окне
