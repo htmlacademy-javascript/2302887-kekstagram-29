@@ -1,23 +1,24 @@
-//Модуль открытия модального окна для полноэкранным показа фото с информацией и комментариями
+//Модуль открытия модального окна для полноэкранного показа фото с информацией и комментариями
 
 //Определяем порцию выводимых комментариев
 const DISPLAY_COMMENTS = 5;
 
-//Находим узел отображения модального окна в DOMе
+//Находим элемент отображения модального окна в DOMе
 const modalOpenElement = document.querySelector('.big-picture');
-const commentElement = modalOpenElement.querySelector('.comments');
-//Находим узел отображения количества комментариев к фото
+const commentElement = modalOpenElement.querySelector('.comments-shown');
+//Находим элемент отображения количества комментариев к фото
 const commentCountElement = modalOpenElement.querySelector('.comments-count');
-//Находим узел отображения комментариев к фото
+//Находим элемент отображения комментариев к фото
 const commentListElement = modalOpenElement.querySelector('.social__comments');
-//Находим узел отображения кнопки для загрузки новой порции комментариев
+//Находим элемент отображения кнопки для загрузки новой порции комментариев
 const commentsLoaderElement = modalOpenElement.querySelector('.comments-loader');
 //Находим body элемент страницы
 const bodyElement = document.querySelector('body');
-//Находим узел отображения кнопки для выхода из полноэкранного просмотра изображения
+//Находим элемент отображения кнопки для выхода из полноэкранного просмотра изображения
 const cancelButtonElement = modalOpenElement.querySelector('.big-picture__cancel');
 //Находим и получаем содержимое шаблона и записываем в переменную-объект
 const commentTemplate = document.querySelector('.big-picture__social').querySelector('.social__comment');
+
 //Объявляем переменную количества отображаемых комментариев
 let commentsShown = 0;
 //Объявляем массив комментариев
@@ -44,9 +45,12 @@ const renderComments = () => {
   commentsShown += DISPLAY_COMMENTS;
   //Проверяем необходимость показа кнопки Показать ещё (комментарии)
   if (commentsShown >= comments.length) {
+    //Если все комментарии показаны, скрываем кнопку
     commentsLoaderElement.classList.add('hidden');
+    //Увиличиваем счётчик показанных комментариев до конца
     commentsShown = comments.length;
   } else {
+    //Иначе показывам кнопку
     commentsLoaderElement.classList.remove('hidden');
   }
   //Создаем фрагмент для вывода пакета комментариев
@@ -69,26 +73,30 @@ const renderComments = () => {
 };
 
 //Функция операций при закрытии модального окна
-const hideModal = () => {
+const closeModal = () => {
   //Добавляем класс скрытия окна
   modalOpenElement.classList.add('hidden');
   //Удалям класс открытия окна
   bodyElement.classList.remove('modal-open');
   //Удалям обработчик события нажатия кнопки Escape
   document.removeEventListener('keydown', onDocumentKeydown);
+  //Обнуляем счётчик показанных комментариев
   commentsShown = 0;
 };
 
 //Функция закрытия модального окна при нажатии кнопки Escape
 function onDocumentKeydown(evt) {
+  //Если нажата кнопка Escape
   if (evt.key === 'Escape') {
+    //Отменяем действия браузера по умолчанию
     evt.preventDefault();
-    hideModal();
+    //Вызываем функцию закрытия модального окна
+    closeModal();
   }
 }
 
 //Функция исполнения закрытия модального окна
-const onCancelButtonClick = () => hideModal();
+const onCancelButtonClick = () => closeModal();
 
 //Функция исполнения загрузки порции комментариев
 const onCommentsLoaderClick = () => renderComments();
@@ -97,15 +105,15 @@ const onCommentsLoaderClick = () => renderComments();
 
 //Принимает объект с инфомацией об изображении и деструктурирует нужные поля
 const renderPicturesDetalis = ({ url, avatar, likes, description }) => {
-  //Находим узел ссылки на фото в DOM и записываем туда реальную ссылку на фото
+  //Находим элемент ссылки на фото в DOM и записываем туда реальную ссылку на фото
   modalOpenElement.querySelector('.big-picture__img img').src = url;
-  //Находим узел ссылки на аватар автора в DOM и записываем туда реальную ссылку на аватар
+  //Находим элемент ссылки на аватар автора в DOM и записываем туда реальную ссылку на аватар
   modalOpenElement.querySelector('.social__header .social__picture').src = avatar;
-  //Находим узел количества лайков в DOM и записываем туда количество лайков к открытому фото
+  //Находим элемент количества лайков в DOM и записываем туда количество лайков к открытому фото
   modalOpenElement.querySelector('.likes-count').textContent = likes;
-  //Находим узел описания фото в DOM и записываем туда описание открытого фото
+  //Находим элемент описания фото в DOM и записываем туда описание открытого фото
   modalOpenElement.querySelector('.social__caption').textContent = description;
-  //Находим узел альтернативного описания открытого фото в DOM и записываем туда описание
+  //Находим элемент альтернативного описания открытого фото в DOM и записываем туда описание
   modalOpenElement.querySelector('.big-picture__img img').alt = description;
 };
 
