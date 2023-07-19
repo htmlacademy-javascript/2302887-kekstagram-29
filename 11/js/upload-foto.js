@@ -105,28 +105,19 @@ pristine.addValidator(
   TAGS_ERROR_TEXT
 );
 
-//Функция блокирования кнопки Опубликовать фото с комментариями, если валидация поля хэштэгов не пройдена
-function onTagFieldKeyUp() {
-  if (validateTags(hashtagField.value)) {
+//Функция блокирования кнопки Опубликовать фото с комментариями, если валидация полей хэштэгов или комментариев не пройдена
+function onKeyUp() {
+  if (validateTags(hashtagField.value) && descriptionField.value.length < 141) {
     buttonSubmit.disabled = false;
   } else {
     buttonSubmit.disabled = true;
   }
 }
 
-//Функция блокирования кнопки Опубликовать фото с комментариями, если количество символов в поле комментариев больше 140
-function onTextAriaKeyUp() {
-  if (descriptionField.value.length > 140) {
-    buttonSubmit.disabled = true;
-  } else {
-    buttonSubmit.disabled = false;
-  }
-}
-
+//Добавляем обработчик события нажатия любой кнопки в поле добавления хэштэгов
+hashtagField.addEventListener('keyup', onKeyUp);
 //Добавляем обработчик события нажатия любой кнопки в поле добавления комментариев
-hashtagField.addEventListener('keyup', onTagFieldKeyUp);
-//Добавляем обработчик события нажатия любой кнопки в поле добавления комментариев
-descriptionField.addEventListener('keyup', onTextAriaKeyUp);
+descriptionField.addEventListener('keyup', onKeyUp);
 //Добавляет обработчик события change на кнопку Открыть фото в модальном окне
 fileField.addEventListener('change', onOpenFileChange);
 //Добавляет обработчик события click на кнопку Закрыть окно (крест) в модальном окне
