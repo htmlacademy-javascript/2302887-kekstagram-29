@@ -76,7 +76,7 @@ const updateSlider = () => {
   }
 };
 
-// Функция изменения эффекта
+//Функция изменения эффекта
 
 const onEffectChange = (evt) => {
   if(!evt.target.classList.contains('effects__radio')) {
@@ -88,7 +88,7 @@ const onEffectChange = (evt) => {
 };
 
 
-// Функция обновления слайлдера
+//Функция обновления слайлдера
 
 const onSliderUpdate = () => {
   const sliderValue = effectSlider.noUiSlider.get();
@@ -100,7 +100,7 @@ const onSliderUpdate = () => {
   }
 };
 
-// Функция сброса эффекта
+//Функция сброса эффекта
 
 const resetEffect = () => {
   currentEffect = DEFAULT_EFFECT;
@@ -128,7 +128,8 @@ noUiSlider.create(effectSlider, {
 });
 effectLevel.classList.add('hidden');
 
-effectsContainer.addEventListener('change', onEffectChange);
+//Обращаемся к методу on свойства элемента, содержащего слайдер и при событии update вызываем функцию обновления слайдера
 effectSlider.noUiSlider.on('update', onSliderUpdate);
+effectsContainer.addEventListener('change', onEffectChange);
 
 export {resetEffect};
