@@ -44,25 +44,23 @@ const Effects = [
   }
 ];
 
+//Определяем эффект по умолчанию
 const DEFAULT_EFFECT = Effects[0];
+//Присваиваем текущему эффекту эффект по умолчанию
 let currentEffect = DEFAULT_EFFECT;
 
+//Находим изображение в элементе предварительного просмотра фото
 const previewImage = document.querySelector('.img-upload__preview img');
+//Находим форму, содержащую наложение эффектов
 const effectsContainer = document.querySelector('.img-upload__effects');
+//Находим элемент будущего расположения слайдера
 const effectSlider = document.querySelector('.effect-level__slider');
+//Находим элемент содержащий атрибут уровня эффекта
 const effectValue = document.querySelector('.effect-level__value');
+//Находим элемент содержащий поле слайдера
 const effectLevel = document.querySelector('.img-upload__effect-level');
 
-
-const isDefault = () => currentEffect === DEFAULT_EFFECT;
-
-const showSlider = () => {
-  effectLevel.classList.remove('hidden');
-};
-
-const hideSlider = () => {
-  effectLevel.classList.add('hidden');
-};
+//Функция запуска слайдера
 
 const updateSlider = () => {
   effectSlider.noUiSlider.updateOptions({
@@ -71,10 +69,10 @@ const updateSlider = () => {
     start: currentEffect.RANGE.max,
   });
 
-  if (isDefault()) {
-    hideSlider();
+  if (currentEffect === DEFAULT_EFFECT) {
+    effectLevel.classList.add('hidden');
   } else {
-    showSlider();
+    effectLevel.classList.remove('hidden');
   }
 };
 
@@ -95,7 +93,7 @@ const onEffectChange = (evt) => {
 const onSliderUpdate = () => {
   const sliderValue = effectSlider.noUiSlider.get();
   effectValue.value = sliderValue;
-  if (isDefault()) {
+  if (currentEffect === DEFAULT_EFFECT) {
     previewImage.style.filter = DEFAULT_EFFECT.FILTER;
   } else {
     previewImage.style.filter = `${currentEffect.FILTER}(${sliderValue}${currentEffect.UNIT})`;
@@ -126,7 +124,7 @@ noUiSlider.create(effectSlider, {
     },
   },
 });
-hideSlider();
+effectLevel.classList.add('hidden');
 
 effectsContainer.addEventListener('change', onEffectChange);
 effectSlider.noUiSlider.on('update', onSliderUpdate);
