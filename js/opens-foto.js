@@ -25,6 +25,7 @@ let commentsShown = 0;
 let comments = [];
 
 //Функция создания одного комментария
+
 //В параметрах функции деструктурируем нужные поля массива комментариев
 const createComment = ({ avatar, name, message }) => {
   //Клонируем объект во внутреннюю переменную
@@ -40,6 +41,7 @@ const createComment = ({ avatar, name, message }) => {
 };
 
 //Функция вывода комментариев к открытой в модальном окне фотографии
+
 const renderComments = () => {
   //Обновляем количество выводимых комментариев
   commentsShown += DISPLAY_COMMENTS;
@@ -73,6 +75,7 @@ const renderComments = () => {
 };
 
 //Функция операций при закрытии модального окна
+
 const closeModal = () => {
   //Добавляем класс скрытия окна
   modalOpenElement.classList.add('hidden');
@@ -85,6 +88,7 @@ const closeModal = () => {
 };
 
 //Функция закрытия модального окна при нажатии кнопки Escape
+
 function onDocumentKeydown(evt) {
   //Если нажата кнопка Escape
   if (evt.key === 'Escape') {
@@ -96,9 +100,11 @@ function onDocumentKeydown(evt) {
 }
 
 //Функция исполнения закрытия модального окна
+
 const onCancelButtonClick = () => closeModal();
 
 //Функция исполнения загрузки порции комментариев
+
 const onCommentsLoaderClick = () => renderComments();
 
 //Функция заполнения свойств элемента информацией об открываемой в модальном окне фотографии
@@ -118,6 +124,7 @@ const renderPicturesDetalis = ({ url, avatar, likes, description }) => {
 };
 
 //Функция открытия модального окна
+
 const openModal = (data) => {
   //Удаляем класс скрытия окна
   modalOpenElement.classList.remove('hidden');

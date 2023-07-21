@@ -7,6 +7,7 @@ import { openModal } from './opens-foto.js';
 const container = document.querySelector('.pictures');
 
 //Функция вызова модулей отрисовки миниатюр и окрытия модального окна с кликнутым фото
+
 const renderGallery = (pictures) => {
   //Подписываем общий контейнер галереи миниатюр на событие click
   container.addEventListener('click', (evt) => {

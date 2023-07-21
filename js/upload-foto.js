@@ -1,4 +1,5 @@
 import { resetScale } from './zoom-foto.js';
+import { resetEffect } from './effects-foto.js';
 
 //Определяем допустимое количество хэштэгов
 const MAX_HASHTAGS_COUNT = 5;
@@ -28,6 +29,7 @@ const buttonSubmit = document.querySelector('#upload-submit');
 
 
 //Функция подключения и настройки внешней библиотеки валидации форм Pristine
+
 const pristine = new Pristine(form, {
   //Задаём класс элемента, содержащего валидируемые поля формы (обязательная настройка)
   classTo: 'img-upload__field-wrapper',
@@ -38,6 +40,7 @@ const pristine = new Pristine(form, {
 });
 
 //Функция операций при открытии модального окна публикации фото
+
 const showModal = () => {
   //Добавляем/удаляем нужные классы
   overlay.classList.remove('hidden');
@@ -51,10 +54,14 @@ const showModal = () => {
 };
 
 //Функция операций при закрытии модального окна публикации фото
+
 const hideModal = () => {
   //Очищаем возможное содержимое полей формы от предыдущих заполнений
   form.reset();
+  //Сбрасываем масштаб до начального масштаба
   resetScale();
+  //Сбрасываем эффекты фильтров до оригинального фото
+  resetEffect();
   //Сбрасываем возможные ошибки Pristine от предыдущих заполнений формы
   pristine.reset();
   //Добавляем/удаляем нужные классы и удаляем обработчики событий, связанных с открытым окном
@@ -66,10 +73,12 @@ const hideModal = () => {
 };
 
 //Функция условия блокирования закрытия модального окна при активном фокусе на поле хэштэга или комментария через свойство activeElement
+
 const blockingСonditionOnFocus = () =>
   document.activeElement === hashtagField || document.activeElement === descriptionField;
 
 //Функция закрытия модального окна при нажатии Escape и невыполнении условия блокировки закрытия
+
 function onDocumentKeydown(evt) {
   if (evt.key === 'Escape' && !blockingСonditionOnFocus()) {
     evt.preventDefault();
@@ -77,24 +86,30 @@ function onDocumentKeydown(evt) {
   }
 }
 //Функция исполнения открытия модального окна
+
 const onOpenFileChange = () => {
   showModal();
 };
 //Функция исполнения закрытия модального окна
+
 const onCancelCrossClick = () => {
   hideModal();
 };
 
 //Функция нормализации строки хэштэгов (обрезаем пробелы в начале и конце, разделяем на массив подстрок по пробелу и удаляем пустые подстроки)
+
 const normalizeTags = (tagString) => tagString.trim().split(' ').filter((tag) => Boolean(tag.length));
 
 //Подфункция валидации правильности написания хэштэга
+
 const isValidTag = (value) => normalizeTags(value).every((tag) => HASHTAGS_RULES.test(tag));
 
 //Подфункция валидации допустимого количество хэштэгов
+
 const hasValidCount = (value) => normalizeTags(value).length <= MAX_HASHTAGS_COUNT;
 
 //Подфункция валидации отсутствия одинаковых хэштэгов
+
 const hasUniqueTags = (value) => {
   //Приводим хэштэг к нижнему регистру
   const lowerCaseTags = normalizeTags(value).map((tag) => tag.toLowerCase());
@@ -104,6 +119,7 @@ const hasUniqueTags = (value) => {
 };
 
 //Функция валидации отсутствия повторяющихся хэштэгов
+
 pristine.addValidator(
   //Определяем поле подлежащее валидации
   hashtagField,
@@ -114,6 +130,7 @@ pristine.addValidator(
 );
 
 //Функция валидации символов хэштэга
+
 pristine.addValidator(
   //Определяем поле подлежащее валидации
   hashtagField,
@@ -124,6 +141,7 @@ pristine.addValidator(
 );
 
 //Функция валидации максимального количества хэштэгов
+
 pristine.addValidator(
   //Определяем поле подлежащее валидации
   hashtagField,
@@ -134,9 +152,13 @@ pristine.addValidator(
 );
 
 //Функция блокирования кнопки Опубликовать фото с комментариями, если валидация полей хэштэгов или комментариев не пройдена
+
 function onTextKeyUp() {
+  //Если все функции валидации выдают true
   if (hasUniqueTags(hashtagField.value) && isValidTag(hashtagField.value) && hasValidCount(hashtagField.value) && descriptionField.value.length < 141) {
+    //Кнопку Опубликовать не деактивируем
     buttonSubmit.disabled = false;
+    //В противном случае кнопку деактивируем добавляя свойство css disabled элементу кнопки
   } else {
     buttonSubmit.disabled = true;
   }
