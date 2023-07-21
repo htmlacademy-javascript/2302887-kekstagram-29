@@ -3,10 +3,7 @@ const Effects = [
   {
     NAME: 'none',
     FILTER: 'none',
-    RANGE: {
-      min: 0,
-      max: 100,
-    },
+    RANGE: { min: 0, max: 100 },
     STEP: 1,
     UNIT : ''
   },
