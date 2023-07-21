@@ -96,7 +96,7 @@ const updateSlider = () => {
   }
 };
 
-// Функция изменение эффекта
+// Функция изменения эффекта
 
 const onEffectChange = (evt) => {
   if(!evt.target.classList.contains('effects__radio')) {
@@ -108,7 +108,7 @@ const onEffectChange = (evt) => {
 };
 
 
-// Функция обновление слайлдера
+// Функция обновления слайлдера
 
 const onSliderUpdate = () => {
   const sliderValue = effectSlider.noUiSlider.get();
