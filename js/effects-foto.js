@@ -107,6 +107,8 @@ const resetEffect = () => {
   updateSlider();
 };
 
+//Обращение к внешней библиотеке noUiSlider
+
 noUiSlider.create(effectSlider, {
   range: DEFAULT_EFFECT.RANGE,
   step: DEFAULT_EFFECT.STEP,
