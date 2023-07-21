@@ -3,42 +3,42 @@ const Effects = [
   {
     NAME: 'none',
     FILTER: 'none',
-    RANGE: { min: 0, max: 100 },
+    RANGE: {min: 0, max: 100},
     STEP: 1,
     UNIT : ''
   },
   {
     NAME: 'chrome',
     FILTER: 'grayscale',
-    RANGE: { min: 0, max: 1 },
+    RANGE: {min: 0, max: 1},
     STEP: 0.1,
     UNIT : ''
   },
   {
     NAME: 'sepia',
     FILTER: 'sepia',
-    RANGE: { min: 0, max: 1 },
+    RANGE: {min: 0, max: 1},
     STEP: 0.1,
     UNIT : ''
   },
   {
     NAME: 'marvin',
     FILTER: 'invert',
-    RANGE: { min: 0, max: 100 },
+    RANGE: {min: 0, max: 100},
     STEP: 1,
     UNIT : '%'
   },
   {
     NAME: 'phobos',
     FILTER: 'blur',
-    RANGE: { min: 0, max: 3 },
+    RANGE: {min: 0, max: 3},
     STEP: 0.1,
     UNIT : 'px'
   },
   {
     NAME: 'heat',
     FILTER: 'brightness',
-    RANGE: { min: 1, max: 3 },
+    RANGE: {min: 1, max: 3},
     STEP: 0.1,
     UNIT : ''
   }
@@ -106,6 +106,8 @@ const resetEffect = () => {
   currentEffect = DEFAULT_EFFECT;
   updateSlider();
 };
+
+//Обращение к внешней библиотеке noUiSlider
 
 noUiSlider.create(effectSlider, {
   range: DEFAULT_EFFECT.RANGE,
