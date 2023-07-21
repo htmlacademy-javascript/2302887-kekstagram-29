@@ -13,7 +13,7 @@ const smallerButton = document.querySelector('.scale__control--smaller');
 const biggerButton = document.querySelector('.scale__control--bigger');
 //Находим элемент отображения текущего масштаба фото
 const scaleValue = document.querySelector('.scale__control--value');
-//Находим изображение в злементе предварительного просмотра фото
+//Находим изображение в элементе предварительного просмотра фото
 const previewImage = document.querySelector('.img-upload__preview img');
 
 //Функция масштабироваиня предварительного просмотра фото
