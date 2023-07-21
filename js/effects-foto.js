@@ -60,7 +60,7 @@ const effectValue = document.querySelector('.effect-level__value');
 //Находим элемент содержащий поле слайдера
 const effectLevel = document.querySelector('.img-upload__effect-level');
 
-//Функция запуска слайдера
+//Функция включения слайдера
 
 const updateSlider = () => {
   effectSlider.noUiSlider.updateOptions({
