@@ -57,9 +57,9 @@ const onBiggerButtonClick = () => {
 
 const resetScale = () => scaleImage(INITIAL_SCALE);
 
-//Добавляет обработчик события click на кнопку уменьшения масштаба фото
+//Добавляем обработчик события click на кнопку уменьшения масштаба фото
 smallerButton.addEventListener('click', onSmallerButtonClick);
-//Добавляет обработчик события click на кнопку увеличения масштаба фото
+//Добавляем обработчик события click на кнопку увеличения масштаба фото
 biggerButton.addEventListener('click', onBiggerButtonClick);
 
 export { resetScale };
