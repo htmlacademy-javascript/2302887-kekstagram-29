@@ -512,7 +512,6 @@ main {
 
   width: 600px;
   height: 600px;
-
   background-color: #ffffff;
 }
 
@@ -1412,7 +1411,8 @@ main {
 .img-upload__error {
   background-color: #df4115;
   color: #ffffff;
-  font-size: 11px;
+  font-size: 10px;
   margin-top: -20px;
+  margin-left: 20px;
   position: relative;
 }
