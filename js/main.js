@@ -1,5 +1,12 @@
-import { getData } from './get-data.js';
+import { getData } from './api.js';
 import { renderGallery } from './renders-gallery.js';
 import './upload-foto.js';
+import { showAlert } from './error-upload.js';
 
-renderGallery(getData());
+getData()
+  .then((usersPictures) => {
+    renderGallery(usersPictures);
+  })
+  .catch((err) => {
+    showAlert(err.message);
+  });
