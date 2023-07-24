@@ -1,8 +1,8 @@
 //Модуль генерации временного массива данных о фотографиях выложенных в кекстограме
 
-import {getRandomInteger} from './util.js';
-import {createIdGenerator} from './util.js';
-import {getRandomArrayElement} from './util.js';
+import {getRandomInteger} from './utils.js';
+import {createIdGenerator} from './utils.js';
+import {getRandomArrayElement} from './utils.js';
 
 //Количество фото в массиве
 const PICTURE_COUNT = 26;
