@@ -2,7 +2,7 @@
 
 import { resetScale } from './zoom-foto.js';
 import { resetEffect } from './effects-foto.js';
-import {sendData} from './api.js';
+import {sendData} from './creates-api.js';
 import {showSuccessPopup , showErrorPopup} from './opens-popup.js';
 
 //Определяем допустимое количество хэштэгов
