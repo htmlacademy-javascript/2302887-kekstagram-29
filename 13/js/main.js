@@ -1,12 +1,14 @@
-import { getData } from './api.js';
+import { getData, showAlert } from './creates-api.js';
 import { renderGallery } from './renders-gallery.js';
-import './upload-foto.js';
-import { showAlert } from './error-upload.js';
+import {userFotoFormSubmit} from './upload-foto.js';
+
 
 getData()
-  .then((usersPictures) => {
-    renderGallery(usersPictures);
+  .then((usersFoto) => {
+    renderGallery(usersFoto);
   })
   .catch((err) => {
     showAlert(err.message);
   });
+
+userFotoFormSubmit();
