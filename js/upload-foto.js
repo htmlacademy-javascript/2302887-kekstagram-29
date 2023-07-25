@@ -1,5 +1,9 @@
+//Модуль публикации нового фото
+
 import { resetScale } from './zoom-foto.js';
 import { resetEffect } from './effects-foto.js';
+import {sendData} from './api.js';
+import {showSuccessPopup , showErrorPopup} from './opens-popup.js';
 
 //Определяем допустимое количество хэштэгов
 const MAX_HASHTAGS_COUNT = 5;
@@ -9,20 +13,24 @@ const HASHTAGS_RULES = /^#[a-zа-яё0-9]{1,19}$/i;
 const UNUNIQUE_TAGS_ERROR_TEXT = 'Ошибка хэштэга: повторяющийся хэштэг - уберите повтор в любом регистре !';
 const INVALID_CONTENT_ERROR_TEXT = 'Ошибка хэштэга: неверное содержимое хэштэга - начать с #, плюс от 1  до 19 символов a-z,а-я, 0-9';
 const INVALID_COUNT_ERROR_TEXT = 'Ошибка хэштэга: превышено допустимое количество хэштэгов - не более 5 !';
+//Определяем текст кнопки Опубликовать в процессе и после загрузки файла фото на сервер
+const SUBMIT_BUTTON_TEXT_SENDING = 'Публикую...';
+const SUBMIT_BUTTON_TEXT = 'Опубликовать';
+
 
 //Находим body элемент страницы
 const body = document.querySelector('body');
-//Находим форму редактирования загружаемого фото
-const overlay = document.querySelector('.img-upload__overlay');
-//Находим форму загрузки модального окна редактирования загружаемого фото
-const form = document.querySelector('.img-upload__form');
+//Находим форму редактирования публикуемого фото
+const uploadOverlay = document.querySelector('.img-upload__overlay');
+//Находим форму загрузки модального окна публикации фото
+const uploadForm = document.querySelector('.img-upload__form');
 //Находим окно выбора фото для загрузки в стандартном окне поиска ОС
 const fileField = document.querySelector('#upload-file');
 //Находим поле хэштэгов к фото
 const hashtagField = document.querySelector('.text__hashtags');
 //Находим поле комментариев к фото
 const descriptionField = document.querySelector('.text__description');
-//Находим кнопку Закрыть модальное окно загрузки фото (крест)
+//Находим кнопку Закрыть модального окна публикации фото (крест)
 const cancelCross = document.querySelector('#upload-cancel');
 //Находим кнопку Опубликовать фото с комментариями
 const buttonSubmit = document.querySelector('#upload-submit');
@@ -30,7 +38,7 @@ const buttonSubmit = document.querySelector('#upload-submit');
 
 //Функция подключения и настройки внешней библиотеки валидации форм Pristine
 
-const pristine = new Pristine(form, {
+const pristine = new Pristine(uploadForm, {
   //Задаём класс элемента, содержащего валидируемые поля формы (обязательная настройка)
   classTo: 'img-upload__field-wrapper',
   //Задаём класс элемента вывода сообщений об ошибках валидации (обязательная настройка)
@@ -43,13 +51,13 @@ const pristine = new Pristine(form, {
 
 const showModal = () => {
   //Добавляем/удаляем нужные классы
-  overlay.classList.remove('hidden');
+  uploadOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
   //Добавляем обработчик события нажатия любой кнопки при окрытом окне для его закрытия
-  document.addEventListener('keydown', onDocumentKeydown);
-  //Добавляем обработчик события отпускания любой кнопки в поле добавления хэштэгов для блокировки отправки данных при невалидном поле хэштэгов
+  document.addEventListener('keydown', onDocumentEscKeydown);
+  //Добавляем обработчик события keyup любой кнопки в поле добавления хэштэгов для блокировки отправки данных при невалидном поле хэштэгов
   hashtagField.addEventListener('keyup', onTextKeyUp);
-  //Добавляем обработчик события отпускания любой кнопки в поле добавления комментариев для блокировки отправки данных при невалидном поле комментария
+  //Добавляем обработчик события keyup любой кнопки в поле добавления комментариев для блокировки отправки данных при невалидном поле комментария
   descriptionField.addEventListener('keyup', onTextKeyUp);
 };
 
@@ -57,7 +65,7 @@ const showModal = () => {
 
 const hideModal = () => {
   //Очищаем возможное содержимое полей формы от предыдущих заполнений
-  form.reset();
+  uploadForm.reset();
   //Сбрасываем масштаб до начального масштаба
   resetScale();
   //Сбрасываем эффекты фильтров до оригинального фото
@@ -65,32 +73,32 @@ const hideModal = () => {
   //Сбрасываем возможные ошибки Pristine от предыдущих заполнений формы
   pristine.reset();
   //Добавляем/удаляем нужные классы и удаляем обработчики событий, связанных с открытым окном
-  overlay.classList.add('hidden');
+  uploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
-  document.removeEventListener('keydown', onDocumentKeydown);
+  document.removeEventListener('keydown', onDocumentEscKeydown);
   hashtagField.removeEventListener('keyup', onTextKeyUp);
   descriptionField.removeEventListener('keyup', onTextKeyUp);
 };
 
-//Функция условия блокирования закрытия модального окна при активном фокусе на поле хэштэга или комментария через свойство activeElement
+//Функция условия блокирования закрытия модального окна публикации при активном фокусе на поле хэштэга или комментария через свойство activeElement
 
 const blockingСonditionOnFocus = () =>
   document.activeElement === hashtagField || document.activeElement === descriptionField;
 
-//Функция закрытия модального окна при нажатии Escape и невыполнении условия блокировки закрытия
+//Функция закрытия модального окна публикации фото при нажатии Escape и невыполнении условия блокировки закрытия
 
-function onDocumentKeydown(evt) {
+function onDocumentEscKeydown(evt) {
   if (evt.key === 'Escape' && !blockingСonditionOnFocus()) {
     evt.preventDefault();
     hideModal();
   }
 }
-//Функция исполнения открытия модального окна
+//Функция исполнения открытия модального окна публикации фото
 
 const onOpenFileChange = () => {
   showModal();
 };
-//Функция исполнения закрытия модального окна
+//Функция исполнения закрытия модального окна публикации фото при нажатии на кнопку Крест
 
 const onCancelCrossClick = () => {
   hideModal();
@@ -151,20 +159,61 @@ pristine.addValidator(
   INVALID_COUNT_ERROR_TEXT, 3, true
 );
 
-//Функция блокирования кнопки Опубликовать фото с комментариями, если валидация полей хэштэгов или комментариев не пройдена
+//Функция блокирования кнопки Опубликовать, если валидация полей хэштэгов или комментариев не пройдена
 
 function onTextKeyUp() {
   //Если все функции валидации выдают true
   if (hasUniqueTags(hashtagField.value) && isValidTag(hashtagField.value) && hasValidCount(hashtagField.value) && descriptionField.value.length < 141) {
-    //Кнопку Опубликовать не деактивируем
+    //Кнопку Опубликовать не блокируем
     buttonSubmit.disabled = false;
-    //В противном случае кнопку деактивируем добавляя свойство css disabled элементу кнопки
+    //В противном случае кнопку блокируем добавляя свойство css disabled элементу кнопки
   } else {
     buttonSubmit.disabled = true;
   }
 }
 
+//Функция блокировки кнопки Опубликовать
+
+const blockSubmitButton = () => {
+  buttonSubmit.disabled = true;
+  buttonSubmit.textContent = SUBMIT_BUTTON_TEXT_SENDING;
+};
+
+
+//Функция разблокировки кнопки Опубликовать
+
+const unblockSubmitButton = () => {
+  buttonSubmit.disabled = false;
+  buttonSubmit.textContent = SUBMIT_BUTTON_TEXT;
+};
+
+//Функция отправки формы публикации фото на сервер
+const userFotoFormSubmit = () => {
+  //Добавляем обработчик события submit на кнопке Опубликовать формы публикации нового фото
+  uploadForm.addEventListener('submit', (evt) => {
+    //Отменяем действие браузера по умолчанию
+    evt.preventDefault();
+    //Если содержимое полей формы валидно
+    if (pristine.validate()) {
+      //Блокируем кнопку Опубликовать для предотвращения повторных нажатий в процессе публикации
+      blockSubmitButton();
+      //Отправляем данные о фото на сервер через вызов функции отправки данных с
+      sendData(new FormData(evt.target))
+        .then(() => {
+          hideModal();
+          showSuccessPopup();
+        })
+        .catch(() => {
+          showErrorPopup();
+        })
+        .finally(unblockSubmitButton);
+    }
+  });
+};
+
 //Добавляет обработчик события change на кнопку Открыть фото в модальном окне
 fileField.addEventListener('change', onOpenFileChange);
 //Добавляет обработчик события click на кнопку Закрыть окно (крест) в модальном окне
 cancelCross.addEventListener('click', onCancelCrossClick);
+
+export {userFotoFormSubmit, onDocumentEscKeydown};

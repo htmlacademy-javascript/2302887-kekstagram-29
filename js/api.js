@@ -7,9 +7,11 @@ const Route = {
   GET_DATA: '/data',
   SEND_DATA: '/',
 };
+//Определяем время показа сообщения об ошибке загрузки данных с сервера
+const ALERT_SHOW_TIME = 7000;
 
 //Определям текст сообщения об ошибке загрузки данных с сервера
-const ERROR_GET = 'Не удаётся загрузить данные. Проверьте подключение к сети';
+const ERROR_GET = 'Не удаётся загрузить данные. Проверьте подключение к сети !';
 //Определям текст сообщения об ошибке отпраки данных на сервер
 const ERROR_SEND = 'Не удаётся отправить форму. Проверьте подключение к сети';
 
@@ -34,9 +36,35 @@ const load = (route, errorText, method = 'GET', body = null) =>
 
 
 //Функция получения данных с сервера методом GET
+
 const getData = () => load(Route.GET_DATA, ERROR_GET, 'GET');
 
 //Функция отправки данных на сервер методом POST
+
 const sendData = (body) => load(Route.SEND_DATA, ERROR_SEND, 'POST', body);
 
-export {getData, sendData};
+//Функция создания и стилизации сообщения об ошибке загрузки данных с сервера
+
+const showAlert = (message) => {
+  //Создаём шаблон элемента сообщения об ошибке
+  const alert = document.createElement('div');
+  //Стилизуем сообщение об ошибке
+  alert.style.position = 'absolute';
+  alert.style.left = '0';
+  alert.style.top = '0';
+  alert.style.right = '0';
+  alert.style.padding = '10px 3px';
+  alert.style.fontSize = '20px';
+  alert.style.textAlign = 'center';
+  alert.style.background = '#df4115';
+  //Добавляем текст сообщения об ошибке
+  alert.textContent = message;
+  //Добавляем шаблон в DOM
+  document.body.append(alert);
+  //Используем встроенную функцию задержки для удаления сообщения об ошибке
+  setTimeout(() => {
+    alert.remove();
+  }, ALERT_SHOW_TIME);
+};
+
+export {getData, sendData, showAlert};
