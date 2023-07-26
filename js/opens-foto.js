@@ -110,11 +110,11 @@ const onCommentsLoaderClick = () => renderComments();
 //Функция заполнения свойств элемента информацией об открываемой в модальном окне фотографии
 
 //Принимает объект с инфомацией об изображении и деструктурирует нужные поля
-const renderPicturesDetalis = ({ url, avatar, likes, description }) => {
+const renderPicturesDetalis = ({ url, likes, description }) => {
   //Находим элемент ссылки на фото в DOM и записываем туда реальную ссылку на фото
   modalOpenElement.querySelector('.big-picture__img img').src = url;
   //Находим элемент ссылки на аватар автора в DOM и записываем туда реальную ссылку на аватар
-  modalOpenElement.querySelector('.social__header .social__picture').src = avatar;
+  //modalOpenElement.querySelector('.social__header .social__picture').src = avatar;
   //Находим элемент количества лайков в DOM и записываем туда количество лайков к открытому фото
   modalOpenElement.querySelector('.likes-count').textContent = likes;
   //Находим элемент описания фото в DOM и записываем туда описание открытого фото

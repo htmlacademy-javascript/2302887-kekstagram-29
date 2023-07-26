@@ -1,5 +1,14 @@
-import { getData } from './get-data.js';
+import { getData, showAlert } from './creates-api.js';
 import { renderGallery } from './renders-gallery.js';
-import './upload-foto.js';
+import {userFotoFormSubmit} from './upload-foto.js';
 
-renderGallery(getData());
+
+getData()
+  .then((usersFoto) => {
+    renderGallery(usersFoto);
+  })
+  .catch((err) => {
+    showAlert(err.message);
+  });
+
+userFotoFormSubmit();
