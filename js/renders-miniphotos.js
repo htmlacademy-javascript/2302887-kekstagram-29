@@ -4,6 +4,8 @@
 const pictureTemplate = document.querySelector('#picture');
 //Получаем содержимое шаблона и записываем в переменную-объект
 const photoTemplate = pictureTemplate.content.querySelector('.picture');
+//Находим секцию сортировки фотоминиатюр
+const filterContainer = document.querySelector('.img-filters');
 
 //Колбэкфункция создания одного элемента, содержащиего данные о реальном фото по шаблону
 
@@ -29,6 +31,8 @@ const createPhoto = ({ comments, description, likes, url, id }) => {
 
 //В параметр функции принимаем массив элементов, содержащих данные о кокретном фото и записываем в DOM
 const renderMiniPhotos = (pictures, container) => {
+  //Удаляем (очищаем перед перерисовкой фильтром) ранее отрисованные миниатюры
+  container.querySelectorAll('.picture').forEach((element) => element.remove());
   //Создаём временный массив-объект для хранения фрагмента DOM-дерева с помощью метода createDocumentFragment()
   const fragment = document.createDocumentFragment();
   //Проходим по массиву элементов фото
@@ -40,6 +44,8 @@ const renderMiniPhotos = (pictures, container) => {
   });
   //Добавляем содержимое фрагмента DOM-дерева в определённое в модуле renders-page контейнер-место DOM-дерева страницы
   container.append(fragment);
+  //Открываем секцию сортировки фотоминиатюр
+  filterContainer.classList.remove('img-filters--inactive');
 };
 
 export { renderMiniPhotos };

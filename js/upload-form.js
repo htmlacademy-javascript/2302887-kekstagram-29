@@ -1,7 +1,7 @@
 //Модуль публикации нового фото
 
 import { resetScale } from './zoom-foto.js';
-import { resetEffect } from './effects-foto.js';
+import { resetEffect } from './effects-photo.js';
 import {sendData} from './creates-api.js';
 import {showSuccessPopup , showErrorPopup} from './opens-popup.js';
 

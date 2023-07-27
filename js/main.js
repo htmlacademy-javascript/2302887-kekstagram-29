@@ -1,6 +1,6 @@
 import { getData, showAlert } from './creates-api.js';
 import { renderGallery } from './renders-gallery.js';
-import {userFotoFormSubmit} from './upload-foto.js';
+import { userFotoFormSubmit } from './upload-form.js';
 
 
 getData()

@@ -16,7 +16,7 @@ const ERROR_GET = 'Не удаётся загрузить данные. Пров
 const ERROR_SEND = 'Не удаётся отправить форму. Проверьте подключение к сети';
 
 //Функция отправки запроса на сервер
-const load = (route, errorText, method = 'GET', body = null) =>
+const serverRequest = (route, errorText, method = 'GET', body = null) =>
   //Запускаем метод fetch и передаём ему путь обращения и объект настроек с дополнительными параметрами метода и объект тела запроса
   fetch(`${BASE_URL}${route}`, {method, body})
     //Возвращаем объект promise с будущим ответом сервера и, когда он придёт, вызываем метод then и передаём ему колбэк с объектом ответа
@@ -37,11 +37,11 @@ const load = (route, errorText, method = 'GET', body = null) =>
 
 //Функция получения данных с сервера методом GET
 
-const getData = () => load(Route.GET_DATA, ERROR_GET, 'GET');
+const getData = () => serverRequest(Route.GET_DATA, ERROR_GET, 'GET');
 
 //Функция отправки данных на сервер методом POST
 
-const sendData = (body) => load(Route.SEND_DATA, ERROR_SEND, 'POST', body);
+const sendData = (body) => serverRequest(Route.SEND_DATA, ERROR_SEND, 'POST', body);
 
 //Функция создания и стилизации сообщения об ошибке загрузки данных с сервера
 
