@@ -5,8 +5,8 @@ import './upload-photo.js';
 
 
 getData()
-  .then((usersFoto) => {
-    renderGallery(usersFoto);
+  .then((usersPhotos) => {
+    renderGallery(usersPhotos);
   })
   .catch((err) => {
     showAlert(err.message);
