@@ -50,10 +50,16 @@ const randomArraySort = (data) => {
   return data;
 };
 
+// Функция-колбэк случайной сортировки фото
+const sortRandom = (data, count) => randomArraySort(data).slice(0, count);
+
+// Функция-колбэк сортировки фото по количеству комментариев по убыванию
+const sortComments = (data) => data.sort((a, b) => b.comments.length - a.comments.length);
+
 // Функция удаления элемента
 const removeElement = (element) => {
   element.remove();
 };
 
 
-export {getRandomInteger, createIdGenerator, getRandomArrayElement, debounce, removeElement, randomArraySort};
+export {getRandomInteger, createIdGenerator, getRandomArrayElement, debounce, removeElement, sortComments, sortRandom};
