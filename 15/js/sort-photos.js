@@ -1,7 +1,7 @@
 // Модуль сортировки фото в галерее
 
 import { renderGallery } from './renders-gallery.js';
-import { debounce, randomArraySort, removeElement } from './utils.js';
+import { debounce, removeElement, sortComments, sortRandom } from './utils.js';
 
 //Определяем время задержки запроса серверу для устранения "дребезга"
 const DELAY_TIME = 500;
@@ -15,12 +15,6 @@ const sortRandomElement = document.querySelector('#filter-random');
 //Находтм кнопку вывода самых комментируемых фото
 const sortCommentElement = document.querySelector('#filter-discussed');
 
-// Функция случайной сортировки фото
-const sortRandom = (data) => randomArraySort(data).slice(0, COUNT_RANDOM_PHOTOS);
-
-// Функция сортировки фото по количеству комментариев по убыванию
-const sortComments = (data) => data.sort((a, b) => b.comments.length - a.comments.length);
-
 // Функция перерисовки галереи в соответствии с выбранным методом сортировки фото
 const updatePhotos = (targetElement, photos) => {
   //Делаем копию загруженного массива фото для операций сортировки
@@ -28,7 +22,7 @@ const updatePhotos = (targetElement, photos) => {
   //Если нажата кнопка Случайные
   if (targetElement === sortRandomElement) {
     //Сортируем массив случайным методом
-    copyPhotos = sortRandom(copyPhotos);
+    copyPhotos = sortRandom(copyPhotos, COUNT_RANDOM_PHOTOS);
   }
   ////Если нажата кнопка Обсуждаемые
   if (targetElement === sortCommentElement) {
@@ -45,7 +39,7 @@ const updatePhotos = (targetElement, photos) => {
 const renderPhotosDelay = debounce((targetElement, photos) => updatePhotos(targetElement, photos), DELAY_TIME);
 
 // Функция инициализации работы методов сортировки изображений
-const initSortPhotos = (loadedPhotos) => {
+const sortingGallery = (loadedPhotos) => {
   // Открываем секцию сортировки фотоминиатюр
   photosSortsElement.classList.remove('img-filters--inactive');
   //Добавляем обработчик события click по любой кнопке сортировки
@@ -64,4 +58,4 @@ const initSortPhotos = (loadedPhotos) => {
   });
 };
 
-export { initSortPhotos };
+export { sortingGallery };
