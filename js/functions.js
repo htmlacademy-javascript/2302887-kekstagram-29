@@ -1,4 +1,4 @@
-//Декларативно объявленная функция для проверки длины строки с классическим синтаксисом
+// Декларативно объявленная функция для проверки длины строки с классическим синтаксисом
 function checksLengthString(string, maxLength) {
   if (string.length <= maxLength) {
     return true;
@@ -10,12 +10,12 @@ function checksLengthString(string, maxLength) {
 checksLengthString('Проверка длины строки', 21);
 
 
-//Cтрелочная функция для проверки длины строки с сокращённым синтаксисом
+// Cтрелочная функция для проверки длины строки с сокращённым синтаксисом
 const checksLengthString2 = (string, maxLength) => string.length <= maxLength;
 
 checksLengthString2('Проверка длины строки', 21);
 
-//Функция, объявленная через назначение переменной для проверки длины строк
+// Функция, объявленная через назначение переменной для проверки длины строк
 const checksLengthString3 = function(string, maxLength) {
   if (string.length <= maxLength) {
     return true;
@@ -26,7 +26,7 @@ const checksLengthString3 = function(string, maxLength) {
 checksLengthString3('Проверка длины строки', 21);
 
 
-//Функция для проверки, является ли строка палиндромом, решение в лоб по инструкции в задании
+// Функция для проверки, является ли строка палиндромом, решение в лоб по инструкции в задании
 const checksPalindromString = (string) => {
   let normalizeString = string.replaceAll(' ', '');
   normalizeString = normalizeString.toLowerCase();
@@ -42,7 +42,7 @@ const checksPalindromString = (string) => {
 
 checksPalindromString('Лёша на полке клопа нашёл');
 
-//Функция для проверки, является ли строка палиндромом, оптимальное решение по лайву
+// Функция для проверки, является ли строка палиндромом, оптимальное решение по лайву
 const isPalindrom = (string) => {
   const normalizeString = string.replaceAll(' ', '').toLowerCase();
   for (let i = 0; i < normalizeString.length / 2; i++) {
@@ -55,7 +55,7 @@ const isPalindrom = (string) => {
 
 isPalindrom('Топот');
 
-//Функция для преобразование строки с цифрами и символами в число по лайву
+// Функция для преобразование строки с цифрами и символами в число по лайву
 const getDigits = (date) => {
   const stringDate = date.toString();
   let digits = '';
@@ -69,13 +69,13 @@ const getDigits = (date) => {
 
 getDigits('1 кефир, 0.5 батона');
 
-//Функция для преобразования строки со временем дня в число минут с начала суток
+// Функция для преобразования строки со временем дня в число минут с начала суток
 const TimeInMinutes = (time) => {
   const [hour, minute] = time.split(':');
   return hour * 60 + Number(minute);
 };
 
-//Функция проверки реальности встречи в рабочее время
+// Функция проверки реальности встречи в рабочее время
 const realMeeting = (jobStart, jobEnd, meetingStart, meetingTime) => {
   const jobStartInMinutes = TimeInMinutes(jobStart);
   const jobEndInMinutes = TimeInMinutes(jobEnd);
@@ -85,3 +85,5 @@ const realMeeting = (jobStart, jobEnd, meetingStart, meetingTime) => {
     meetingStartInMinutes + meetingTime <= jobEndInMinutes
   );
 };
+
+realMeeting();
