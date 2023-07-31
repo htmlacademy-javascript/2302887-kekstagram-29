@@ -12,7 +12,7 @@ const uploadForm = document.querySelector('.img-upload__form');
 // Находим иконки эффектов
 const effectsPreviews = uploadForm.querySelectorAll('.effects__preview');
 
-// Подписываем кнопку Загрузить на событие change
+// Добавляем обработчик события change на кнопку Загрузить
 fileChooser.addEventListener('change', () => {
   // И в случае нажатия записываем первый выбранный файл в виде объекта массива
   const file = fileChooser.files[0];
