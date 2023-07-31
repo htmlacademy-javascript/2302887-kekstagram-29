@@ -6,42 +6,42 @@ const Effects = [
     NAME: 'none',
     FILTER: 'none',
     RANGE: {min: 0, max: 100},
-    STEP: 1,
+    STEP: 1.00,
     UNIT : ''
   },
   {
     NAME: 'chrome',
     FILTER: 'grayscale',
-    RANGE: {min: 0, max: 1},
-    STEP: 0.1,
+    RANGE: {min: 0, max: 1.00},
+    STEP: 0.10,
     UNIT : ''
   },
   {
     NAME: 'sepia',
     FILTER: 'sepia',
-    RANGE: {min: 0, max: 1},
-    STEP: 0.1,
+    RANGE: {min: 0, max: 1.00},
+    STEP: 0.10,
     UNIT : ''
   },
   {
     NAME: 'marvin',
     FILTER: 'invert',
     RANGE: {min: 0, max: 100},
-    STEP: 1,
+    STEP: 1.00,
     UNIT : '%'
   },
   {
     NAME: 'phobos',
     FILTER: 'blur',
     RANGE: {min: 0, max: 3},
-    STEP: 0.1,
+    STEP: 0.10,
     UNIT : 'px'
   },
   {
     NAME: 'heat',
     FILTER: 'brightness',
-    RANGE: {min: 1, max: 3},
-    STEP: 0.1,
+    RANGE: {min: 1.00, max: 3},
+    STEP: 0.10,
     UNIT : ''
   }
 ];
@@ -133,10 +133,10 @@ noUiSlider.create(effectSlider, {
     // В слайдере
     to: function (value) {
       if (Number.isInteger(value)) {
-        // Если число целое знаки после запятой не выводятся
-        return value.toFixed(0);
-      }// Если дробное выводим 1 знак после запятой
-      return value.toFixed(1);
+        // Если число целое выводим 2 знака после запятой (при 0 автотест e2e выдвёт ошибку)
+        return value.toFixed(2);
+      }// Если дробное выводим 2 знака после запятой
+      return value.toFixed(2);
     },// Из слайдера
     from: function (value) {
       return parseFloat(value);
