@@ -8,8 +8,9 @@ const fileChooser = document.querySelector('.img-upload__input');
 // Находим элемент расположения файла для предварительного просмотра
 const uploadPreview = document.querySelector('.img-upload__preview img');
 // Находим форму загрузки модального окна публикации фото
-const form = document.querySelector('.img-upload__form');
-const effectsPreviews = form.querySelectorAll('.effects__preview');
+const uploadForm = document.querySelector('.img-upload__form');
+// Находим иконки эффектов
+const effectsPreviews = uploadForm.querySelectorAll('.effects__preview');
 
 // Подписываем кнопку Загрузить на событие change
 fileChooser.addEventListener('change', () => {
@@ -23,8 +24,9 @@ fileChooser.addEventListener('change', () => {
   if (matches) {
     // Заменяем в DOM путь дефолтного файла для предварительного просмотра на путь к выбранному файлу методом createObjectURL, применённый к встроенному в браузер  объекту URL
     uploadPreview.src = URL.createObjectURL(file);
-    //
+    //Проходим по иконкам эффектов
     effectsPreviews.forEach((preview) => {
+      //Заменяем фото в иконках на выбранный к загрузке фыйл через стилизацию и добавление фонового изображения
       preview.style.backgroundImage = `url('${uploadPreview.src}')`;
     });
   }
