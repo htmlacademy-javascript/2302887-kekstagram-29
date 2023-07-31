@@ -4,7 +4,7 @@ import { renderGallery } from './renders-gallery.js';
 import { debounce, removeElement, sortComments, sortRandom } from './utils.js';
 
 //Определяем время задержки запроса серверу для устранения "дребезга"
-const DELAY_TIME = 500;
+const DELAY_TIME = 600;
 //Определяем количество случайных фото для отрисовки
 const COUNT_RANDOM_PHOTOS = 10;
 
